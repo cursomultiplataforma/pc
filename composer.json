@@ -39,7 +39,6 @@
       "@development-enable"
     ],
     "serve": "php -S 0.0.0.0:8080 -t public public/index.php",
-    "test": "phpunit",
-    "heroku-postbuild": "php composer.phar install"
+    "test": "phpunit"
   }
 }
