@@ -7,6 +7,7 @@
 
     namespace Application\Controller;
 
+    use Zend\Http\Response;
     use Zend\Mvc\Controller\AbstractRestfulController;
 
     class IndexController extends AbstractRestfulController
@@ -29,11 +30,27 @@
 
         public function getList()
         {
-            $this->response->setStatusCode(200);
-            $this->response->setContent(json_encode([
+            /** @var Response $response */
+            $response = $this->getResponse();
+            $response->getHeaders()->addHeaders([
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => '*'
+            ]);
+            $response->setContent(json_encode([
                 'content' => 'prueba get list'
             ]));
-            return $this->response;
+            $response->setStatusCode(200);
+            return $response;
         }
 
+        public function options()
+        {
+            /** @var Response $response */
+            $response = $this->getResponse();
+            $response->getHeaders()->addHeaders([
+                'Access-Control-Allow-Origin' => '*',
+                'Access-Control-Allow-Methods' => '*'
+            ]);
+            return $response;
+        }
     }
