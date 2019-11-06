@@ -7,11 +7,24 @@
 
     namespace Application\Controller;
 
+    use Zend\Db\Adapter\Adapter;
     use Zend\Http\Response;
     use Zend\Mvc\Controller\AbstractRestfulController;
 
     class IndexController extends AbstractRestfulController
     {
+        /** @var Adapter */
+        private $dbAdapter;
+
+        /**
+         * IndexController constructor.
+         * @param $dbAdapter
+         */
+        public function __construct($dbAdapter)
+        {
+            $this->dbAdapter = $dbAdapter;
+        }
+
         public function create($data)
         {
             $this->response->setStatusCode(200);
