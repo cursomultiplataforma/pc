@@ -7,6 +7,7 @@
 
     namespace Application\Controller;
 
+    use Application\Model\Entity\Prueba;
     use Zend\Db\Adapter\Adapter;
     use Zend\Http\Response;
     use Zend\Mvc\Controller\AbstractRestfulController;
@@ -43,6 +44,14 @@
 
         public function getList()
         {
+            $pruebaModel = new Prueba($this->dbAdapter);
+            $data = $pruebaModel->getAllData();
+
+            $ids = '';
+            foreach ($data as $d) {
+                $ids .= $d['id'] . '-';
+            }
+
             /** @var Response $response */
             $response = $this->getResponse();
             $response->getHeaders()->addHeaders([
@@ -50,7 +59,7 @@
                 'Access-Control-Allow-Methods' => '*'
             ]);
             $response->setContent(json_encode([
-                'content' => 'prueba get list'
+                'content' => 'prueba get list => ' . $ids
             ]));
             $response->setStatusCode(200);
             return $response;
